@@ -1,5 +1,6 @@
 const ytdl = require('ytdl-core');
-const { prefix } = require('../config.json');
+//const { prefix } = require('../config.json');
+const prefix = process.env.PREFIX || "!";
 const { nextSong } = require('../modules/music');
 module.exports = {
     name: "play",

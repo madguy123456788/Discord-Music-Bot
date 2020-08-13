@@ -6,8 +6,22 @@ const client = new Discord.Client(/*{ ws: { intents: Discord.Intents.ALL } }*/);
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 console.log("Initializing Discord.js Bot...");
-//const config = require("./config.json");
-const { prefix, token, presence, ownerid } = require('./config.json');
+//const { prefix, token, presence, ownerid } = require('./config.json');
+console.log("Setting Variables...");
+if (process.env.MODE != 'production' || process.env.MODE == undefined) {
+	console.log("WARNING: Bot Running in Testing Mode!")
+	try {
+		require('dotenv').config();
+	} catch (err) {
+		console.log(`An Error Occurred when accessing '.env': ${err}`)
+		process.exit();
+	}
+}
+const prefix = process.env.PREFIX || "!";
+const token = process.env.TOKEN;
+//const { status } = require('./config.json');
+const status = process.env.STATUS || "Ready!";
+const ownerid = process.env.OWNER_ID || 0;
 
 console.log(`Loading Discord.js Bot With Prefix ${prefix}...`);
 var count = 0;
@@ -24,7 +38,9 @@ console.log(`${count} Commands were Loaded!`);
 client.once('ready', () => {
 	//console.log('Ready!');
 	console.log("The Bot is Online and Ready");
-	client.user.setPresence({ game: { name: presence }, status: 'online'});
+	if (status){
+		client.user.setPresence({ game: { name: status }, status: 'online'});
+	};
 		//.then(console.log)
 		//.catch(console.error);
 });
@@ -80,5 +96,8 @@ client.on('message', message => {
 });
 
 
-
+if (!token) {
+	console.log("Bot Token not Defined!");
+	process.exit();
+}
 client.login(token);

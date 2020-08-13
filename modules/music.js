@@ -1,5 +1,4 @@
 const ytdl = require('ytdl-core');
-const { GroupDMChannel } = require('discord.js');
 
 module.exports = {
     nextSong: async function(message) {

@@ -9,7 +9,7 @@ module.exports = {
         let voiceChannel = message.guild.voiceData.channel;
         
         voiceChannel.leave();
-        message.guild.voiceData = null;
+        message.guild.voiceData = undefined;
         message.channel.send("**Stopped Music And Left Channel!**")
     }
 }

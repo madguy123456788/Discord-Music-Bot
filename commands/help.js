@@ -1,4 +1,7 @@
-const { prefix, ownerid } = require('../config.json');
+//const { prefix, ownerid } = require('../config.json');
+//const { ownerid } = require('../config.json');
+const prefix = process.env.PREFIX || "!";
+const ownerid = process.env.OWNER_ID || 0;
 module.exports = {
 	name: 'help',
 	description: 'Get Help',

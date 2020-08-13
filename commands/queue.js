@@ -25,7 +25,7 @@ module.exports = {
                 timestamp: new Date(),
                 footer: { text: message.client.user.username }
             };
-
+            message.channel.send("Getting Queue Information, Please Wait a Moment...")
             var count = 0;
             for (var item in queue) {
                 var info = await ytdl.getBasicInfo(queue[item]);
