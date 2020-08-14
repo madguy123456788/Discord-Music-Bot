@@ -32,6 +32,7 @@ run the Bot with the following commands in command prompt:
 `set PREFIX=<prefix> && set STATUS=<status> && set TOKEN=<token> && set OWNER_ID=<owner_id> && set MODE=production && node index.js`
 
 *These commands are Practically Identical to those on linux but instead of `set` the command is `export` instead*
+*you will have to execute all the commands again if you close and reopen the command prompt window*
 
 ### -OR-
 
