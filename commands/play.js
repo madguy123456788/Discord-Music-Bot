@@ -18,9 +18,9 @@ module.exports = {
         if (message.guild.voiceProcessing) return message.reply("I'm Currently Building the Song Queue! Please wait a bit and try again");
 
         if (!message.guild.voiceData) {
+            if (!voiceChannel) return message.reply("Please join a Voice Channel Before Running this Command!");
             message.guild.voiceProcessing = true;
             console.log(`[${new Date()}] Building Song Queue for Server "${message.guild.name}"...`);
-            if (!voiceChannel) return message.reply("Please join a Voice Channel Before Running this Command!");
 
             voiceinformation.channel = voiceChannel;
             var playqueue = [ args[0] ];
@@ -64,6 +64,7 @@ module.exports = {
             });
         } else {
             if(!ytdl.validateURL(args[0])) return message.reply("Please enter a valid Youtube URL!");
+            if (!voiceChannel || voiceChannel != message.guild.voiceData.channel) return message.reply("Please join the Voice channel I'm in to add to the song queue")
             message.guild.voiceData.queue.push(args[0]);
             message.guild.voiceData.requesters.push(message.member);
             message.channel.send("**Song Queued!**");
