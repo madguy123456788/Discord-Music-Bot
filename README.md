@@ -50,7 +50,7 @@ OWNER_ID=<This is your User ID Obtained from the Discord Client with Developer O
 then run the bot in command prompt with `node index.js`
 it will say that the bot is running in "Testing Mode", This is a result of my implemenation of the .env file to allow for a testing version to run alongside a live version
 
-<<<<<<< HEAD
+
 Once you run the command(s), the bot will load modules and command, then it will start, exiting the command prompt window will kill the bot and stop it responding to commands from users
 
 ## How to Use (Linux)
