@@ -8,6 +8,7 @@ It is a barebones Discord Music Bot written in `discord.js` and *probably* won't
 Firstly You need to have NodeJS installed, download from [Here](https://nodejs.org/en/download/)
 
 clone the repo with `git clone https://www.github.com/madguy123456788/Private-Music-Bot.git`,
+
 Then `cd` into the newly created `Private-Music-Bot/` directory and run `npm-install`, this will install all of the required dependancies for the bot to function.
 
 Next..
