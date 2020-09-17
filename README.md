@@ -16,6 +16,7 @@ Next..
 
 run the Bot with the following commands in command prompt:
 *see the block above for the variable options*
+
 `set PREFIX=<prefix>`*optional: if not set, the bot will use `!` as the prefix*
 
 `set STATUS=<status>`*optional: if not set, the bot will display a generic `Ready!` Message*
