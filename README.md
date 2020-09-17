@@ -3,7 +3,7 @@
 This bot was a private project created by `Just a Mushroom#4101`
 It is a barebones Discord bot written in `discord.js` and *probably* won't work very well
 
-## How to Use
+## How to Use (Windows)
 
 Firstly You need to have NodeJS installed, download from [Here](https://nodejs.org/en/download/)
 
@@ -49,3 +49,9 @@ then run the bot in command prompt with `node index.js`
 it will say that the bot is running in "Testing Mode", This is a result of my implemenation of the .env file to allow for parallel testing of the code alongside the live version
 
 Once you run the command(s), the bot will load modules and command, then it will start, exiting the command prompt window will kill the bot and stop it responding to commands from users
+
+## How to Use (Linux)
+
+The Process for starting the bot on Linux is almost identical to that on Windows.
+The main differences are that node can be installed with `sudo apt-get install node`, instead of using `set` to set the variables, you use `export` instead 
+and that the one-liner for the bot is `PREFIX=<prefix> STATUS=<status> TOKEN=<token> OWNER_ID=<owner_id> MODE=production; node index.js`
