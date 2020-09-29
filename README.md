@@ -58,5 +58,6 @@ Once you run the command(s), the bot will load modules and command, then it will
 The Process for starting the bot on Linux is almost identical to that on Windows.
 The main differences are that node can be installed with `sudo apt-get install node`, instead of using `set` to set the variables, you use `export` instead 
 and that the one-liner for the bot is `PREFIX=<prefix> STATUS=<status> TOKEN=<token> OWNER_ID=<owner_id> MODE=production; node index.js`
+*if `node index.js` doesn't work, try `nodejs index.js` instead*
 
 Once you run the command(s), the bot will load required modules and commands, then it will start. Exiting the command prompt window will kill the bot and stop it responding to commands from users
