@@ -9,7 +9,7 @@ Firstly You need to have NodeJS installed, download from [Here](https://nodejs.o
 
 clone the repo with `git clone https://www.github.com/madguy123456788/Discord-Music-Bot.git`, or download the latest release (download the source code for the release)
 
-Then `cd` into the newly created `Private-Music-Bot/` directory and run `npm-install`, this will install all of the required dependancies for the bot to function.
+Then `cd` into the newly created `Private-Music-Bot/` directory and run `npm install`, this will install all of the required dependancies for the bot to function.
 
 Next..
 
@@ -22,9 +22,9 @@ run the Bot with the following commands in command prompt:
 
 `set STATUS=<status>`*optional: if not set, the bot will display a generic `Ready!` Message*
 
-`set TOKEN=<token>` *required to allow the program to login to the bot account*
+`set TOKEN=<token>` *required, allows the program to login to the bot account*
 
-`set OWNER_ID=<owner_id>` *optional, don't set if you don't want to use commands like `reload` or `reloadall`*
+`set OWNER_ID=<owner_id>` *optional, don't set if you don't want to use commands like `reload` or `reloadall` that are only accessible by the owner of the bot*
 
 `set MODE=production` *this is required if you don't plan to use the .env file*
 
@@ -32,8 +32,6 @@ run the Bot with the following commands in command prompt:
 
 *If you want to do all this in one command type in:*
 `set PREFIX=<prefix> && set STATUS=<status> && set TOKEN=<token> && set OWNER_ID=<owner_id> && set MODE=production && node index.js`
-
-*These commands are Practically Identical to those on linux but instead of `set` the command is `export` instead*
 
 *you will have to execute all the commands again if you close and reopen the command prompt window*
 
