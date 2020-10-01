@@ -8,6 +8,7 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 console.log("Initializing Discord.js Bot...");
 //const { prefix, token, presence, ownerid } = require('./config.json');
 console.log("Setting Variables...");
+const presenceInterval = 3600000; //How often the bot updates its presence in milliseconds. Default is every hour.
 if (process.env.MODE != 'production' || process.env.MODE == undefined) {
 	console.log("WARNING: Bot Running in Testing Mode!")
 	try {
@@ -40,6 +41,9 @@ client.once('ready', () => {
 	console.log("The Bot is Online and Ready");
 	if (status){
 		client.user.setPresence({ game: { name: status }, status: 'online'});
+		setInterval(()=> {
+			client.user.setPresence({ game: { name: status }, status: 'online'});
+		}, presenceInterval)
 	};
 		//.then(console.log)
 		//.catch(console.error);
