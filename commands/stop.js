@@ -8,8 +8,20 @@ module.exports = {
         message.guild.voiceData.stopping = true;
         let voiceChannel = message.guild.voiceData.channel;
         
+        const response = {
+            title: "Stopped!",
+            color: 0xFF0000,
+            fields: [
+                { name: "Music", value: "Music has been stopped!"},
+                { name: "Channel", value: "Left channel!"}
+            ],
+            timestamp: new Date(),
+            footer: { text: message.client.user.username }
+        }
+
         voiceChannel.leave();
         message.guild.voiceData = undefined;
-        message.channel.send("**Stopped Music And Left Channel!**")
+        //message.channel.send("**Stopped Music And Left Channel!**")
+        message.channel.send({ embed: response })
     }
 }

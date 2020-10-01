@@ -30,12 +30,13 @@ module.exports = {
             for (var item in queue) {
                 var info = await ytdl.getBasicInfo(queue[item]);
                 var itemtitle = info.videoDetails.title;
+                var itemauthor = info.videoDetails.author.name;
                 if (count === 0) {
                     //embed.fields.push({ name: "Now Playing", value: queue[item] });
-                    embed.fields.push({ name: "Now Playing", value: itemtitle || queue[item] });
+                    embed.fields.push({ name: "Now Playing", value: `${itemtitle || queue[item]} - ${itemauthor || "Unknown"}` });
                 } else {
                     //embed.fields.push({ name: "Queue Item", value: queue[item] });
-                    embed.fields.push({ name: "Queue Item", value: itemtitle || queue[item] });
+                    embed.fields.push({ name: itemtitle || queue[item], value: itemauthor || "Unknown" });
                 }
                 count += 1;
             }
