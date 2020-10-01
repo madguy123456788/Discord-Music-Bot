@@ -1,7 +1,5 @@
-//const { prefix, ownerid } = require('../config.json');
-//const { ownerid } = require('../config.json');
 const prefix = process.env.PREFIX || "!";
-const ownerid = process.env.OWNER_ID || 0;
+const ownerid = parseInt(process.env.OWNER_ID) || 0;
 module.exports = {
 	name: 'help',
 	description: 'Get Help',
@@ -25,7 +23,7 @@ module.exports = {
 			commands.map( (command) => {
 				//if ( command.permission == 'BotOwner' && message.author.id != ownerid ) {
 				//	embed.fields.push({ name: `${prefix}${command.name}`, value: command.description, inline: true })
-				var testPerm = ( command.permission == 'Testing' && message.author.id == ownerid);
+				//var testPerm = ( command.permission == 'Testing' && message.author.id == ownerid);
 				if ( command.permission == 'BotOwner' && message.author.id == ownerid ) {
 					
 					embed.fields.push({ name: `${prefix}${command.name}`, value: command.description, inline: true })
@@ -36,19 +34,28 @@ module.exports = {
 						embed.fields.push({ name: `${prefix}${command.name}`, value: command.description, inline: true })
 						
 					} else if ( command.permission != "Testing" ) {
-						
-						if ( command.neededrole && command.neededrole.some((CurrentVal) => { return message.member.roles.has(message.guild.roles.find(role => role.name == CurrentVal).id)})) {
-							
+						if (message.member !== null || message.member) {
+							if ( command.neededrole && command.neededrole.some((CurrentVal) => {message.member.roles.cache.has(() => {if (message.guild.roles.cache.find(role => role.name === CurrentVal)) { return message.guild.roles.cache.find(role => role.name === CurrentVal).id} else { return null }})})) {
+								
+								embed.fields.push({ name: `${prefix}${command.name}`, value: command.description, inline: true })
+								
+							} else if (command.permission == "ServerOwner" && message.member == message.guild.owner) {
+
+								embed.fields.push({ name: `${prefix}${command.name}`, value: command.description, inline: true })
+
+							}
+							} else if ( !command.neededrole && command.permission != "ServerOwner") {
+								
+								embed.fields.push({ name: `${prefix}${command.name}`, value: command.description, inline: true })
+								
+							}
+						} else if ( !command.neededrole && command.permission != "ServerOwner") {
+								
 							embed.fields.push({ name: `${prefix}${command.name}`, value: command.description, inline: true })
-							
-						} else if ( !command.neededrole) {
-							
-							embed.fields.push({ name: `${prefix}${command.name}`, value: command.description, inline: true })
-							
+								
 						}
 					}
-				}
-			});
+				});
 			
 			//return message.author.send(data, {split: true})
 			return message.author.send({ embed: embed })
@@ -76,22 +83,28 @@ module.exports = {
 		//if (command.usage) data.push(`**Usage:** ${prefix}${command.name} ${command.usage}`);
 
 		if (command.permission == 'BotOwner' && message.author.id != ownerid) {
-			embed.fields.push({ name: "Error", value: `You do not have Permission to view information on system command: ${prefix}${command.name}` });
+			embed.fields.push({ name: "Error", value: `You do not have Permission to view information on system command: \`${prefix}${command.name}\`` });
 			embed.fields.push({ name: "Reason", value: "System Command, Required Permission: `Bot Owner`" });
 			
 		} else if (command.guildOnly && message.channel.type === "dm") {
 			
 			embed.fields.push({ name: "Error", value: `Information on this command cannot be viewed in a DM, please execute \`${prefix}${this.name} ${command.name}\` in a Server`});
-			
+		
+		} else if (command.neededrole && (!message.member || message.member == null)) {
+
+			embed.fields.push({ name: "Error", value: `You do not have Permission to view information on \`${prefix}${command.name}\`` });
+
+			embed.fields.push({ name: "Reason", value: "Unable to confirm user roles, please execute in a server!" });
+
 		} else if (command.neededrole && !command.neededrole.some((CurrentVal) => { return message.member.roles.has(message.guild.roles.find(role => role.name == CurrentVal).id)}) && message.channel.type !== "dm") {
 			
-			embed.fields.push({ name: "Error", value: `You do not have Permission to view information on ${prefix}${command.name}` });
+			embed.fields.push({ name: "Error", value: `You do not have Permission to view information on \`${prefix}${command.name}\`` });
 			roles = command.neededrole.join(', ');
 			embed.fields.push({ name: "Required Role(s)", value: roles });
 			
 		} else if (command.permission == "Testing" && message.author.id != ownerid) {
 			
-			embed.fields.push({ name: "Error", value: `You do not have Permission to view information on command: ${prefix}${command.name}` });
+			embed.fields.push({ name: "Error", value: `You do not have Permission to view information on command: \`${prefix}${command.name}\`` });
 			embed.fields.push({ name: "Reason", value: "Command in Testing" });
 			
 		} else {
