@@ -12,13 +12,33 @@ module.exports = {
 		
 		delete require.cache[require.resolve(`./${command.name}.js`)];
 		
+		const response = {
+			title: "Placeholder title",
+			color: 0xFFFF00,
+			fields:[],
+			timestamp: new Date(),
+			footer: { text: message.client.user.username }
+		}
+
 		try {
 			const newCommand = require(`./${command.name}.js`);
 			message.client.commands.set(newCommand.name, newCommand);
-			message.channel.send(`Command \`${command.name}\` was Reloaded!`);
+			response.title = "Command Reloaded";
+			response.fields.push({ name: "Reload Successful", value: "The command was successfully reloaded!"});
+			response.fields.push({ name: "Command Reloaded", value: newCommand.name });
+			//message.channel.send(`Command \`${command.name}\` was Reloaded!`);
+			message.channel.send({ embed: response})
 		} catch (error) {
 			console.log(error);
-			message.channel.send(`There was an error when reloading command \`${command.name}\`:\n\`${error.message}\``);
+			response.title = "Command Reload Failed";
+			response.color = 0xFF0000;
+			response.fields = [
+				{ name: "Command not Reloaded", value: "An error occured while reloading"},
+				{ name: "Affected Command", value: command.name },
+				{ name: "Error", value: error }
+			];
+			//message.channel.send(`There was an error when reloading command \`${command.name}\`:\n\`${error.message}\``);
+			message.channel.send({ embed: response });
 		}
 	},
 };

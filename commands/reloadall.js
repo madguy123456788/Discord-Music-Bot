@@ -12,6 +12,6 @@ module.exports = {
 			message.client.commands.set(command.name, command);
 		}
 		
-		message.channel.send("All Commands Reloaded");
+		message.channel.send("All Commands Reloaded!");
 	}
 };
