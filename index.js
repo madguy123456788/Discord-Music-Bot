@@ -70,7 +70,7 @@ client.on('message', message => {
 	}
 
 	//if (command.neededrole && message.channel.type !== 'dm' && !message.member.roles.cache.some(role => role.name === command.neededrole)) {
-	if ( command.neededrole && !command.neededrole.some((CurrentVal) => {message.member.roles.cache.has(() => {if (message.guild.roles.cache.find(role => role.name === CurrentVal)) { return message.guild.roles.cache.find(role => role.name === CurrentVal).id} else { return null }})})) {
+	if ( command.neededrole && !message.member.roles.cache.find((role) => role.name === command.neededRole)) {
 		return message.reply(`You Don't Have Permission to use this command! Required Role: \`${command.neededrole}\``);
 	}
 	if ( command.permission == "Testing" && message.author.id != ownerid) {

@@ -35,7 +35,7 @@ module.exports = {
 						
 					} else if ( command.permission != "Testing" ) {
 						if (message.member !== null || message.member) {
-							if ( command.neededrole && command.neededrole.some((CurrentVal) => {message.member.roles.cache.has(() => {if (message.guild.roles.cache.find(role => role.name === CurrentVal)) { return message.guild.roles.cache.find(role => role.name === CurrentVal).id} else { return null }})})) {
+							if ( command.neededrole && message.member.roles.cache.find((role) => role.name === command.neededRole)) {
 								
 								embed.fields.push({ name: `${prefix}${command.name}`, value: command.description, inline: true })
 								
@@ -96,7 +96,7 @@ module.exports = {
 
 			embed.fields.push({ name: "Reason", value: "Unable to confirm user roles, please execute in a server!" });
 
-		} else if (command.neededrole && !command.neededrole.some((CurrentVal) => { return message.member.roles.has(message.guild.roles.find(role => role.name == CurrentVal).id)}) && message.channel.type !== "dm") {
+		} else if (command.neededrole && !message.member.roles.cache.find((role) => role.name === command.neededRole)) {
 			
 			embed.fields.push({ name: "Error", value: `You do not have Permission to view information on \`${prefix}${command.name}\`` });
 			roles = command.neededrole.join(', ');
