@@ -31,8 +31,9 @@ module.exports = {
                 voiceinformation.connection = connection;
                 var info = await ytdl.getBasicInfo(playqueue[0]);
                 var title = info.videoDetails.title;
+                var author = info.videoDetails.author.name;
                 let stream = ytdl(playqueue[0], { filter: 'audioonly', highWaterMark: 1<<25 });
-                var time = `${Math.floor(info.videoDetails.lengthSeconds / 60)}:${info.videoDetails.lengthSeconds - (Math.floor(info.videoDetails.lengthSeconds / 60) * 60)}`
+                var time = module.exports.calculateTime(info.videoDetails.lengthSeconds);
                 let dispatcher = connection.playStream(stream);
                 voiceinformation.dispatcher = dispatcher;
                 message.guild.voiceData = voiceinformation;
@@ -43,7 +44,8 @@ module.exports = {
                 	title: "Now Playing",
                 	color: 0xFF0000,
                 	fields: [
-                			{ name: "Title", value: title || "Error Getting Title" },
+                            { name: "Title", value: title || "Error Getting Title" },
+                            { name: "Uploader", value: author },
                             { name: "Youtube URL", value: playqueue[0] },
                             { name: "Length", value: time },
                             { name: "Requester", value: requester }
@@ -81,7 +83,8 @@ module.exports = {
             } else {
                 var info = await ytdl.getBasicInfo(guild.voiceData.queue[0]);
                 var title = info.videoDetails.title;
-                var time = `${Math.floor(info.videoDetails.lengthSeconds / 60)}:${info.videoDetails.lengthSeconds - (Math.floor(info.videoDetails.lengthSeconds / 60) * 60)}`
+                var author = info.videoDetails.author.name;
+                var time = module.exports.calculateTime(info.videoDetails.lengthSeconds);
                 let stream = ytdl(guild.voiceData.queue[0], { filter: 'audioonly', highWaterMark: 1<<25 });
                 let dispatcher = guild.voiceData.connection.playStream(stream);
                 guild.voiceData.dispatcher = dispatcher;
@@ -91,7 +94,8 @@ module.exports = {
                 	title: "Now Playing",
                 	color: 0xFF0000,
                 	fields: [
-                			{ name: "Title", value: title || "Error Getting Title" },
+                            { name: "Title", value: title || "Error Getting Title" },
+                            { name: "Uploader", value: author},
                             { name: "URL", value: guild.voiceData.queue[0] },
                             { name: "Length", value: time },
                             { name: "Requester", value: requester }
@@ -109,5 +113,36 @@ module.exports = {
                 });
             }
         }
+    },
+    calculateTime: function(flengthSeconds) {
+        var lengthSeconds = flengthSeconds;
+        var lengthMinutes = Math.floor(flengthSeconds / 60);
+        lengthSeconds -= lengthMinutes * 60;
+        var lengthHours = 0;
+        var greaterThanOneHour = false;
+        minuteString = lengthMinutes;
+        secondString = lengthSeconds;
+        if (lengthMinutes >= 60) {
+            lengthHours = Math.floor(lengthMinutes / 60)
+            lengthMinutes -= lengthHours * 60
+            greaterThanOneHour = true;
+        }
+        if (greaterThanOneHour) {
+            if (lengthMinutes < 10) {
+                minuteString = `0${lengthMinutes}`;
+            }
+        }
+        if (flengthSeconds >= 60) {
+            if (lengthSeconds < 10) {
+                secondString = `0${lengthSeconds}`;
+            }
+        }
+        var time = "PlaceHolder";
+        if (greaterThanOneHour) {
+            time = `${lengthHours}:${minuteString}:${secondString}`;
+        } else {
+            time = `${minuteString}:${secondString}`
+        }
+        return time;
     }
 };
