@@ -22,7 +22,7 @@ const prefix = process.env.PREFIX || "!";
 const token = process.env.TOKEN;
 //const { status } = require('./config.json');
 const status = process.env.STATUS || "Ready!";
-const ownerid = process.env.OWNER_ID || 0;
+const ownerid = process.env.OWNER_ID || "0";
 
 console.log(`Loading Discord.js Bot With Prefix ${prefix}...`);
 var count = 0;

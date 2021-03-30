@@ -1,5 +1,5 @@
 const prefix = process.env.PREFIX || "!";
-const ownerid = parseInt(process.env.OWNER_ID) || 0;
+const ownerid = process.env.OWNER_ID || "0";
 module.exports = {
 	name: 'help',
 	description: 'Get Help',
