@@ -104,4 +104,13 @@ if (!token) {
 	console.log("Bot Token not Defined!");
 	process.exit();
 }
-client.login(token);
+
+try
+{
+  client.login(token);
+}
+catch (error)
+{
+  console.error(`Something went wrong when starting the bot! Are you sure you entered the token correct? (${error})`)
+}
+
